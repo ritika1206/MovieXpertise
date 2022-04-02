@@ -1,13 +1,86 @@
 .landingContainer {
     display: flex;
+    margin: 0%;
+    left: 0;
+    top: 0;
+    height: 100%;
 }
 
 .brand {
+    width: 50%;
+    height: 100%;
+    text-align: center;
+}
+
+.brand h1 {
     color: white;
     text-shadow: 1rem;
+    font-size: 8rem;
     font-family: 'Lavishly Yours', cursive;
+    margin-top: 25vh;
+}
+
+.formDiv {
+    width: 50%;
+    height: 100%;
 }
 
 .Form {
     display: grid;
+}
+
+label {
+    color: #6e002e;
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 2.8vh;
+    font-weight: 500;
+    margin-bottom: 0.5vh;
+    margin-top: 1vh;
+}
+
+.inErr {
+    border: 1px solid red;
+    background-color: #e8bbb7;
+}
+
+.errMsg {
+    margin: 0%;
+    margin-top: 1vh;
+    color: #961414;
+    font-size: 1.6vh;
+    font-family: 'Familjen Grotesk', sans-serif;  
+}
+
+.link {
+    color: #6e002e;
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 1.8vh;
+}
+
+.linkTo {
+    text-align: center;
+}
+
+input {
+    border-radius: 0.3vh;
+    border: 2px solid #6e002e;
+    height: 100%;
+}
+
+button {
+    width: 30%;
+    color: #6e002e;
+    border: 0.3vh solid #6e002e;
+    border-radius: 0.4vh;
+    margin: auto;
+    margin-top: 2.5vh;
+    margin-bottom: 0.8vh;
+    padding: 0.8vh;
+    font-size: 2.5vh;
+    font-weight: 850;
+}
+
+button:hover {
+    background: #6e002e;
+    color: white;
 }

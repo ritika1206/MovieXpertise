@@ -1,8 +1,15 @@
+import LoginForm from "./components/auth/LoginForm";
+import { Route, Switch, BrowserRouter } from "react-router-dom";
+
 function App() {
   return (
-    <div>
-      Yo
-    </div>
+    <BrowserRouter>
+        <Switch>
+        <Route path="/">
+          <LoginForm />
+        </Route>
+        </Switch>
+    </BrowserRouter>
   );
 }
 

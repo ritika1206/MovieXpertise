@@ -48,7 +48,7 @@ const LoginForm = (props) => {
                     localStorage.setItem("token", data.data.token);
                     props.setToken(data.data.token);
                     // History.replace("/home");
-                    History.push("home");
+                    History.push("/");
                 })
                 .catch(err => {
                     setIsLoading(false);
@@ -64,12 +64,12 @@ const LoginForm = (props) => {
     return(
         <>
             {isLoading && <LoadingSpinner asOverlay />}
-            <div className={landingContainer}>
+            <div className={classes.landingContainer}>
                 <div className={classes.brand}>
                     <h1>MovieXpertise</h1>
                 </div>
-                <div>
-                    <Card>
+                <div className={classes.formDiv}>
+                    <Card class="Form">
                     <form className={classes.Form} onSubmit={submitHandler}>
                         <label htmlFor="email">E-Mail</label>
                         <input 

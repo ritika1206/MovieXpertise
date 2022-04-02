@@ -1,0 +1,10 @@
+.Form {
+    width: 70%;
+    border-radius: 0.8vh;
+    box-shadow: 2rem;
+    background-color: #8f8b8d;
+    opacity: 0.1rem;
+    margin: auto;
+    margin-top: 20vh;
+    padding: 2.5rem;
+}
