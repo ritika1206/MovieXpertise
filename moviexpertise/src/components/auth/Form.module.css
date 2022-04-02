@@ -1,0 +1,13 @@
+.landingContainer {
+    display: flex;
+}
+
+.brand {
+    color: white;
+    text-shadow: 1rem;
+    font-family: 'Lavishly Yours', cursive;
+}
+
+.Form {
+    display: grid;
+}
