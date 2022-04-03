@@ -1,0 +1,36 @@
+.createBtn {
+    border: 1px solid white;
+    background-color: white;
+    color: #4a0114;
+    font-family: 'Familjen Grotesk', sans-serif;
+    border-radius: 0.2rem;
+    width: 15%;
+    padding: 0.8vh;
+    background-color: #9c989a;
+    border: 1px solid #9c989a;
+}
+
+.createBtn:hover {
+    border: 1px solid white;
+    background-color: white;
+    color: #4a0114;
+}
+
+.createCont {
+    width: 100%;;
+}
+
+.Form {
+    width: 100%;
+    text-align: center;
+}
+
+.createBar {
+    width: 40%;
+    height: 4vh;
+    font-size: 2vh;
+    border-radius: 0.2rem;
+    padding: 0.5vh;
+    padding-left: 2.8vh;
+    margin-right: 2vh;
+}

@@ -14,7 +14,6 @@
 
 .brand h1 {
     color: white;
-    text-shadow: 1rem;
     font-size: 8rem;
     font-family: 'Lavishly Yours', cursive;
     margin-top: 25vh;
@@ -59,11 +58,13 @@ label {
 
 .linkTo {
     text-align: center;
+    margin-top: 1vh;
+    margin-bottom: 0.5vh;
 }
 
 input {
     border-radius: 0.3vh;
-    border: 2px solid #6e002e;
+    border: 2px solid white;
     height: 100%;
 }
 
@@ -78,6 +79,7 @@ button {
     padding: 0.8vh;
     font-size: 2.5vh;
     font-weight: 850;
+    cursor: pointer;
 }
 
 button:hover {
