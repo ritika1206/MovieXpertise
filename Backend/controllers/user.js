@@ -1,149 +1,121 @@
-const { validationResult } = require('express-validator');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-
+const User = require("../models/user");
+const Movielist = require("../models/movielist");
+const { json } = require("express");
 const HttpError = require('../models/http-error');
-const User = require('../models/user');
 
-const signup = async (req, res, next) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return next(
-      new HttpError('Invalid inputs', 422)
-    );
-  }
-  const { email, uname, password } = req.body;
+const getMovieLists = async (req, res, next) => {
+    let movielists;
+    try {
+        movielists = await Movielist.find({userId: req.params.userId});
+        console.log(movielists);
+    }
+    catch {
+        const error = new HttpError(
+            'Some error has occured, please try again later.',
+            500
+          );
+          return next(error);
+    }
 
-  let existingUser;
-  try {
-    existingUser = await User.findOne({ email: email })
-  } catch (err) {
-    const error = new HttpError(
-      'Signing up failed, please try again later.',
-      500
-    );
-    return next(error);
-  }
-  
-  if (existingUser) {
-    const error = new HttpError(
-      'User exists already, please login instead.',
-      422
-    );
-    return next(error);
-  }
+    res
+       .status(201)
+       .json(movielists); 
+}
 
-  let hashedPassword;
-  try {
-    hashedPassword = await bcrypt.hash(password, 12);
-  } catch (err) {
-    const error = new HttpError(
-      'Could not create user, please try again.',
-      500
-    );
-    return next(error);
-  }
-  
-  const createdUser = new User({
-    email,
-    uname,
-    password: hashedPassword
-  });
+const getUser = async (req, res, next) => {
+    let user;
+    console.log(req.params.userId)
+    try {
+        user = await User.findById(req.params.userId);
+        console.log(user);
+    }
+    catch {
+        const error = new HttpError(
+            'Some error has occured, please try again later.',
+            500
+          );
+          return next(error);
+    }
 
-  try {
-    await createdUser.save();
-  } catch (err) {
-    const error = new HttpError(
-      'Signing up failed, please try again.',
-      500
-    );
-    return next(error);
-  }
+    let email = user.email;
+    let uname = user.uname;
+    let movielists = user.movielists;
+    let toSend = {
+        email,
+        uname,
+        movielists,
+    }
+    
+    if(user){
+       res
+       .status(201)
+       .json(toSend); 
+    }
+    else {
+        const error = new HttpError(
+            'No such user exist.',
+            500
+          );
+          return next(error);
+    }
+}
 
-  let token;
-  try {
-    token = jwt.sign(
-      { userId: createdUser.id, email: createdUser.email },
-      'supersecret_dont_share',
-      { expiresIn: '1h' }
-    );
-  } catch (err) {
-    const error = new HttpError(
-      'Signing up failed, please try again later.',
-      500
-    );
-    return next(error);
-  }
+const editProfile = async (req, res, next) => {
+    let user;
+    try {
+        user = await User.findByIdAndUpdate(req.query.userId, user);
+    }
+    catch {
+        const error = new HttpError(
+            'Some error has occured, please try again later.',
+            500
+          );
+          return next(error);
+    }
 
-  res
-    .status(201)
-    .json({ userId: createdUser.id, email: createdUser.email, token: token });
+    if(user){
+       res
+       .status(201)
+       .json(JSON.parse(user)); 
+    }
+    else {
+        const error = new HttpError(
+            'No such user exist.',
+            500
+          );
+          return next(error);
+    }   
+}
 
-};
+const deleteProfile = async (req, res, next) => {
+    let user;
+    try {
+        user = await User.findByIdAndDelete(req.query.userId);
+    }
+    catch {
+        const error = new HttpError(
+            'Some error has occured, please try again later.',
+            500
+          );
+          return next(error);
+    }
 
-const login = async (req, res, next) => {
-  const { email, password } = req.body;
+    if(user){
+       res
+       .status(201)
+       .json(JSON.parse(user)); 
+    }
+    else {
+        const error = new HttpError(
+            'No such user exist.',
+            500
+          );
+          return next(error);
+    }
+}
 
-  let existingUser;
+exports.getMovieLists = getMovieLists;
+exports.getUser = getUser;
+exports.editProfile = editProfile;
+exports.deleteProfile = deleteProfile;
 
-  try {
-    existingUser = await User.findOne({ email: email })
-  } catch (err) {
-    const error = new HttpError(
-      'Logging in failed, please try again later.',
-      500
-    );
-    return next(error);
-  }
-
-  if (!existingUser) {
-    const error = new HttpError(
-      'Invalid credentials',
-      403
-    );
-    return next(error);
-  }
-
-  let isValidPassword = false;
-  try {
-    isValidPassword = await bcrypt.compare(password, existingUser.password);
-  } catch (err) {
-    const error = new HttpError(
-      'Could not log you in, please check your credentials and try again.',
-      500
-    );
-    return next(error);
-  }
-
-  if (!isValidPassword) {
-    const error = new HttpError(
-      'Invalid credentials, could not log you in.',
-      403
-    );
-    return next(error);
-  }
-
-  let token;
-  try {
-    token = jwt.sign(
-      { userId: existingUser.id, email: existingUser.email },
-      'supersecret_dont_share',
-      { expiresIn: '1h' }
-    );
-  } catch (err) {
-    const error = new HttpError(
-      'Logging in failed, please try again later.',
-      500
-    );
-    return next(error);
-  }
-
-  res.json({
-    userId: existingUser.id,
-    email: existingUser.email,
-    token: token
-  });
-};
-
-exports.signup = signup;
-exports.login = login;

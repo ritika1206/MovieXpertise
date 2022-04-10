@@ -55,7 +55,7 @@ const SignupForm = () => {
             const data = userInfo
             
             setIsLoading(true); 
-            axios.post('http://localhost:5000/api/user/signup', data)
+            axios.post('http://localhost:5000/api/auth/signup', data)
                 .then(data => {
                     setIsLoading(false);
                     console.log(data);

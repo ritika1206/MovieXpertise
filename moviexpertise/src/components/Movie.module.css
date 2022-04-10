@@ -1,0 +1,71 @@
+.movie {
+    width: 100%;
+    display: flex;
+    color: #302329;
+    font-family: 'Familjen Grotesk', sans-serif;
+    /* text-align: center; */
+    justify-content: space-evenly;
+    margin-top: 4vh;
+}
+
+.movieInfoCont {
+    /* padding: 2vh; */
+    padding-left: 4vh;
+    padding-right: 4vh;
+    width: 30%;
+    background-color: #bfbfbf;
+}
+
+.moviePoster {
+    width: 55%;
+    height: 85vh;
+}
+
+.movieTitle {
+    font-size: 6vh;
+    color: #47011f;
+    display: inline;
+    /* font-family: 'Lavishly Yours', cursive; */
+}
+
+.moviePlot {
+    margin-bottom: 0vh;
+    margin-top: 3.5vh;
+    font-size: 3.8vh;
+}
+
+.plot {
+    margin-top: 0.5vh;
+}
+
+.movieInfoCont h4 {
+    margin-top: 0.5vh;
+    margin-bottom: 0.5vh;
+    display: inline;
+    color: #302329;
+    font-size: 2.4vh;
+}
+
+.lbl {
+    display: block;
+    font-size: 2.4vh;
+}
+
+.titleLbl {
+    display: block;
+    font-size: 2.4vh;
+    font-size: 6vh;
+    color: #302329;
+    font-weight: 1000;
+}
+
+.selectList {
+    width: 42%;
+    height: 6%;
+    font-size: 2vh;
+    padding: 1vh;
+    font-weight: 540;
+    background-color: #838485;
+    color: #6e002e;
+    margin-right: 2vh;
+}

@@ -7,6 +7,7 @@ const cors = require("cors");
 
 const userRoutes = require("./routes/user");
 const movielistRoutes = require("./routes/movielist");
+const authRoutes = require("./routes/auth.js");
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.use("/api/user", userRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/api/movielist", movielistRoutes);
 
 app.use((req, res, next) => {
@@ -35,7 +37,7 @@ app.use((req, res, next) => {
     res.json({ message: error.message || 'An unknown error occurred!' });
   });
 
-uri = "";
+uri = "mongodb+srv://ritika1234:08414802718@users.h6wod.mongodb.net/MovieXpertise?retryWrites=true&w=majority";
 
 mongoose
   .connect(uri)

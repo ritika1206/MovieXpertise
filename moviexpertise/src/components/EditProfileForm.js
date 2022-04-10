@@ -1,17 +1,15 @@
-import classes from "./Form.module.css";
-import Card from "../../UI/Card";
+import Card from "../UI/Card";
+import classes from "./auth/Form.module.css";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import useInput from "../../Hooks/use-input";
-import { useContext, useState } from "react";
-import LoadingSpinner from "../../UI/LoadingSpinner";
+import useInput from "../Hooks/use-input";
+import { useState } from "react";
+import LoadingSpinner from "../UI/LoadingSpinner";
 
 import axios from 'axios';
-import UserContext from "../../context/userContext";
 
-const LoginForm = (props) => {
+const EditProfileForm = () => {
     const History = useHistory();
-    const ctx = useContext(UserContext);
     const [isLoading, setIsLoading] = useState(false);
 
     const {
@@ -23,6 +21,14 @@ const LoginForm = (props) => {
     } = useInput(val => val.includes("@"));
 
     const {
+        val: enteredUname,
+        hasErr: UnameHasErr,
+        valChangeHandler: UnameChangeHandler,
+        blurHandler: UnameBlurHandler,
+        valIsValid: UnameIsValid
+    } = useInput(val => val.trim() !== "");
+
+    const {
         val: enteredPass,
         hasErr: PassHasErr,
         valChangeHandler: PassChangeHandler,
@@ -30,49 +36,47 @@ const LoginForm = (props) => {
         valIsValid: PassIsValid
     } = useInput(val => val.trim().length >= 7);
 
-    const submitHandler = async (event) => {
+    const submitHandler = (event) => {
         event.preventDefault();
+
         EmailBlurHandler();
         PassBlurHandler();
+        UnameBlurHandler();
         
-        if(!EmailIsValid || !PassIsValid)
+        if(!EmailIsValid || !PassIsValid || !UnameIsValid)
             return;
         
-            const data = {
+            let userInfo = {
                 email: enteredEmail,
+                uname: enteredUname,
                 password: enteredPass
-            }
+            };
 
-            console.log(ctx)
-            setIsLoading(true);
-            axios.post('http://localhost:5000/api/auth/login', data)
+            const data = userInfo
+            
+            setIsLoading(true); 
+            axios.put('http://localhost:5000/api/user/edit-profile', data)
                 .then(data => {
                     setIsLoading(false);
-                    console.log(data)
-                    localStorage.setItem("token", data.data.token);
-                    ctx.updateUser(data.data);
-                    props.setToken();
-                    History.replace("/home");
-                })
+                    console.log(data);
+                    alert("Profile editted successfully");
+                    History.replace("/home/profile");
+                }) 
                 .catch(err => {
                     setIsLoading(false);
-                    console.log(err.response.data.message);
-                    alert(err.response.data.message)
-                })
+                    alert(err.response.data.message);
+                })   
+
     }
-
-    const mailErrCls = EmailHasErr? classes.inErr : ""
-    const pErrCls = PassHasErr? classes.inErr : ""
-
+    
+    const mailErrCls = EmailHasErr? classes.inErr : "";
+    const pErrCls = PassHasErr? classes.inErr : "";
+    const unErrCls = UnameHasErr? classes.inErr : "";
 
     return(
         <>
             {isLoading && <LoadingSpinner asOverlay />}
-            <div className={classes.landingContainer}>
-                <div className={classes.brand}>
-                    <h1>MovieXpertise</h1>
-                </div>
-                <div className={classes.formDiv}>
+            <div className={classes.formDiv}>
                     <Card class="Form">
                     <form className={classes.Form} onSubmit={submitHandler}>
                         <label htmlFor="email">E-Mail</label>
@@ -85,6 +89,18 @@ const LoginForm = (props) => {
                             value={enteredEmail}
                             />
                         {EmailHasErr && <p className={classes.errMsg}>Please enter a valid Email</p>}
+
+                        <label htmlFor="uname">Username</label>
+                        <input
+                            className={unErrCls} 
+                            type="text"
+                            onChange={UnameChangeHandler}
+                            id="uname"
+                            onBlur={UnameBlurHandler}
+                            value={enteredUname}
+                            />
+                        {UnameHasErr && <p className={classes.errMsg}>Username can't be empty</p>}
+
                         <label htmlFor="pass">Password</label>
                         <input 
                             className={pErrCls} 
@@ -95,16 +111,16 @@ const LoginForm = (props) => {
                             value={enteredPass}
                             />
                         {PassHasErr && <p className={classes.errMsg}>Password should have atleast 7 characters</p>}
-                        <button type="submit">Login</button>
+
+                        <button type="submit">Update Profile</button>
                     </form>
                     <div className={classes.linkTo}>
-                        <Link to="/signup" className={classes.link}>Signup if not registered</Link>
+                        <Link to="/login" className={classes.link}>Login with an existing account</Link>
                     </div>
                     </Card>
                 </div>
-            </div>
         </>
     );
 }
 
-export default LoginForm;
+export default EditProfileForm;

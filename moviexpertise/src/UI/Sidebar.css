@@ -38,3 +38,25 @@
     font-family: 'Lavishly Yours', cursive;
     margin-left: 1vh;
 }
+
+.logoutBtn {
+    color: white;
+    font-family: 'Familjen Grotesk', sans-serif;
+    margin: auto;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    background-color: #6e002e;
+    width: 13vh;
+}
+
+.logoutBtn:hover {
+    background-color: #4a0120;
+    border: 1px solid #4a0120;
+    margin: auto;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}
+
+.sideBarBrand:hover {
+    cursor: pointer;
+}

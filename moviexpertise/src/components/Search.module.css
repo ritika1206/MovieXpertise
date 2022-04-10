@@ -1,6 +1,6 @@
 .searchBtn {
-    border: 1px solid #4287f5;
-    background-color: #4287f5;
+    border: 1px solid #046ab8;
+    background-color: #046ab8;
     color: white;
     font-family: 'Familjen Grotesk', sans-serif;
     border-radius: 2rem;
@@ -11,7 +11,8 @@
 }
 
 .searchBtn:hover {
-    background-color: #002c6e;
+    background-color: #03599c;
+    border: 1px solid #03599c;
 }
 
 .searchCont {
@@ -31,4 +32,10 @@
     padding: 0.5vh;
     padding-left: 2.8vh;
     margin-right: 2vh;
+    background-color: #dedede;
+    border: 1px solid #dedede;
+}
+
+.searchBar:focus {
+    border: 1px solid #dedede;
 }

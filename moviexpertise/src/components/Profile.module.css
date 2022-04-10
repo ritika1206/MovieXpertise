@@ -9,6 +9,7 @@
     font-size: 5vh;
     text-align: center;
     letter-spacing: 0.8vh;
+    display: inline;
 }
 
 .crudProf {
@@ -28,5 +29,21 @@
 
 .crudLink:hover {
     text-decoration: underline;
+}
+
+.wlcmLbl {
+    color: #7a6c72;
+    display: block;
+    font-size: 6vh;
+    font-weight: 999;
+    letter-spacing: 1vh;
+    margin-top: 4vh;
+}
+
+.ProCont {
+    background-color: #bfbfbf;
+    width: 80%;
+    margin: auto;
+    height: 85vh;
 }
 

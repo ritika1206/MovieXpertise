@@ -34,3 +34,14 @@
     padding-left: 2.8vh;
     margin-right: 2vh;
 }
+
+.visibility {
+    width: 8.5%;
+    font-size: 3vh;
+    height: 5vh;
+    color: #4a0114;
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-weight: 595;
+    margin-right: 2vh;
+    border-radius: 0.2rem;
+}
