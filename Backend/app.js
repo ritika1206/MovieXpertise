@@ -37,7 +37,7 @@ app.use((req, res, next) => {
     res.json({ message: error.message || 'An unknown error occurred!' });
   });
 
-uri = "mongodb+srv://ritika1234:08414802718@users.h6wod.mongodb.net/MovieXpertise?retryWrites=true&w=majority";
+uri = "";
 
 mongoose
   .connect(uri)
